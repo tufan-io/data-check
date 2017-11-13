@@ -1,15 +1,15 @@
-# data-ok
+# data-check
 
 <!-- badge -->
-[![npm license](https://img.shields.io/npm/l/data-ok.svg)](https://www.npmjs.com/package/data-ok)
-[![travis status](https://img.shields.io/travis/tufan-io/data-ok.svg)](https://travis-ci.org/tufan-io/data-ok)
-[![Build status](https://ci.appveyor.com/api/projects/status/90am2usst4qeutgi?svg=true)](https://ci.appveyor.com/project/tufan-io/data-ok)
-[![Coverage Status](https://coveralls.io/repos/github/tufan-io/data-ok/badge.svg?branch=master)](https://coveralls.io/github/tufan-io/data-ok?branch=master)
-[![David](https://david-dm.org/tufan-io/data-ok/status.svg)](https://david-dm.org/tufan-io/data-ok)
-[![David](https://david-dm.org/tufan-io/data-ok/dev-status.svg)](https://david-dm.org/tufan-io/data-ok?type=dev)
+[![npm license](https://img.shields.io/npm/l/data-check.svg)](https://www.npmjs.com/package/data-check)
+[![travis status](https://img.shields.io/travis/tufan-io/data-check.svg)](https://travis-ci.org/tufan-io/data-check)
+[![Build status](https://ci.appveyor.com/api/projects/status/90am2usst4qeutgi?svg=true)](https://ci.appveyor.com/project/tufan-io/data-check)
+[![Coverage Status](https://coveralls.io/repos/github/tufan-io/data-check/badge.svg?branch=master)](https://coveralls.io/github/tufan-io/data-check?branch=master)
+[![David](https://david-dm.org/tufan-io/data-check/status.svg)](https://david-dm.org/tufan-io/data-check)
+[![David](https://david-dm.org/tufan-io/data-check/dev-status.svg)](https://david-dm.org/tufan-io/data-check?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 <br/>
-[![NPM](https://nodei.co/npm/data-ok.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/data-ok/)
+[![NPM](https://nodei.co/npm/data-check.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/data-check/)
 <!-- endbadge -->
 
 Convenience method to wrap json-schema validation into a single function.
@@ -45,7 +45,7 @@ export declare const isValid: (schema: any, data?: any) => Promise<boolean>;
 ### CLI
 
 ```bash
-  Usage: data-ok [options]
+  Usage: data-check [options]
 
 
   Options:
