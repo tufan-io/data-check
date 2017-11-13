@@ -1,5 +1,5 @@
 {
-  "name": "data-ok",
+  "name": "data-check",
   "version": "0.0.0-development",
   "description": "Convenience API/CLI to dereference a json-schema and validate data",
   "keywords": [
@@ -9,7 +9,7 @@
     "ajv"
   ],
   "author": "Shishir Ramam",
-  "repository": "tufan-io/data-ok",
+  "repository": "tufan-io/data-check",
   "license": "Apache-2.0",
   "private": false,
   "engines": {

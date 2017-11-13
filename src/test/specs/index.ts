@@ -6,7 +6,7 @@ import * as execa from 'execa';
 
 const JSON2 = j => JSON.stringify(j, null, 2);
 
-test('data-ok API schema-ok', async (t) => {
+test('data-check API schema-ok', async (t) => {
   try {
     await isValid(fixtures.valid.schema);
     t.pass();
@@ -15,7 +15,7 @@ test('data-ok API schema-ok', async (t) => {
   }
 });
 
-test('data-ok API schema-v04-ok', async (t) => {
+test('data-check API schema-v04-ok', async (t) => {
   try {
     await isValid(fixtures.v04.schema, null);
     t.pass();
@@ -24,7 +24,7 @@ test('data-ok API schema-v04-ok', async (t) => {
   }
 });
 
-test('data-ok API schema with invalid version', async (t) => {
+test('data-check API schema with invalid version', async (t) => {
   try {
     await isValid(fixtures.invalidVersion.schema, null);
     t.pass();
@@ -33,7 +33,7 @@ test('data-ok API schema with invalid version', async (t) => {
   }
 });
 
-test('data-ok API schema-ok, data-ok', async (t) => {
+test('data-check API schema-ok, data-check', async (t) => {
   try {
     await isValid(fixtures.valid.schema, fixtures.valid.data);
     t.pass();
@@ -42,7 +42,7 @@ test('data-ok API schema-ok, data-ok', async (t) => {
   }
 });
 
-test('data-ok API schema-fail', async (t) => {
+test('data-check API schema-fail', async (t) => {
   try {
     await isValid(fixtures.invalid.schema);
     t.fail('invalid *schema* passed validation!');
@@ -80,7 +80,7 @@ test('data-ok API schema-fail', async (t) => {
   }
 });
 
-test('data-ok API schema-ok, data-fail', async (t) => {
+test('data-check API schema-ok, data-fail', async (t) => {
   try {
     await isValid(fixtures.valid.schema, fixtures.invalid.data);
     t.fail('invalid *data* passed validation!');
@@ -96,7 +96,7 @@ test('data-ok API schema-ok, data-fail', async (t) => {
   }
 });
 
-test('data-ok CLI schema-ok', async (t) => {
+test('data-check CLI schema-ok', async (t) => {
   const result = await execa(
     'node',
     [
@@ -108,7 +108,7 @@ test('data-ok CLI schema-ok', async (t) => {
   t.regex(result.stdout, /Schema is valid/, JSON2(result));
 });
 
-test('data-ok CLI schema-ok, data-ok', async (t) => {
+test('data-check CLI schema-ok, data-check', async (t) => {
   const result = await execa(
     'node',
     [
@@ -122,7 +122,7 @@ test('data-ok CLI schema-ok, data-ok', async (t) => {
   t.regex(result.stdout, /Data is valid/, JSON2(result));
 });
 
-test('data-ok CLI schema-fail', async (t) => {
+test('data-check CLI schema-fail', async (t) => {
   const result = await execa(
     'node',
     [
@@ -140,7 +140,7 @@ test('data-ok CLI schema-fail', async (t) => {
     JSON2(result));
 });
 
-test('data-ok CLI schema-fail, data-fail', async (t) => {
+test('data-check CLI schema-fail, data-fail', async (t) => {
   const result = await execa(
     'node',
     [
@@ -154,7 +154,7 @@ test('data-ok CLI schema-fail, data-fail', async (t) => {
   t.regex(result.stderr, /Invalid data.*/, JSON2(result));
 });
 
-test(`data-ok CLI invalid schema file`, async t => {
+test(`data-check CLI invalid schema file`, async t => {
   const result = await execa(
     'node',
     [
@@ -171,7 +171,7 @@ test(`data-ok CLI invalid schema file`, async t => {
 });
 
 
-test(`data-ok CLI invalid schema file`, async t => {
+test(`data-check CLI invalid schema file`, async t => {
   const result = await execa(
     'node',
     [
