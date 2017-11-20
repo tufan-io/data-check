@@ -47,13 +47,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Ajv = require("ajv");
+var merge = require("lodash.merge");
 var schemaRef = require('json-schema-ref-parser');
 var ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
 var SchemaError = (function (_super) {
     __extends(SchemaError, _super);
-    function SchemaError(message, errors) {
-        var _this = _super.call(this, message) || this;
+    function SchemaError(message, errors, long) {
+        var _this = this;
+        var _serialized = message + "\n" + JSON.stringify(errors.map(function (v) {
+            var w = merge({}, v);
+            delete w['parentSchema'];
+            return w;
+        }), null, 2);
+        var msg = long ? _serialized : message;
+        _this = _super.call(this, msg) || this;
         _this._errors = errors;
+        _this._serialized = _serialized;
         Object.setPrototypeOf(_this, SchemaError.prototype);
         return _this;
     }
@@ -65,11 +74,7 @@ var SchemaError = (function (_super) {
         configurable: true
     });
     SchemaError.prototype.serialize = function () {
-        var violations = this._errors.map(function (v) {
-            delete v['parentSchema'];
-            return v;
-        });
-        return this.message + "\n" + JSON.stringify(violations, null, 2);
+        return this._serialized;
     };
     return SchemaError;
 }(Error));
@@ -79,8 +84,9 @@ function getVersion(schema) {
     var m = s.match(/.*draft-0(\d).*/);
     return m ? m[1] : null;
 }
-exports.isValid = function (schema, data) {
+exports.isValid = function (schema, data, longError) {
     if (data === void 0) { data = null; }
+    if (longError === void 0) { longError = false; }
     return __awaiter(_this, void 0, void 0, function () {
         var fullSchema, ajv;
         return __generator(this, function (_a) {
@@ -97,10 +103,10 @@ exports.isValid = function (schema, data) {
                         ajv.addMetaSchema(ajv04);
                     }
                     if (!ajv.validateSchema(fullSchema)) {
-                        throw new SchemaError("Invalid schema", ajv.errors);
+                        throw new SchemaError("Invalid schema", ajv.errors, longError);
                     }
                     if (data && !ajv.validate(fullSchema, data)) {
-                        throw new SchemaError("Invalid data", ajv.errors);
+                        throw new SchemaError("Invalid data", ajv.errors, longError);
                     }
                     return [2, true];
             }

@@ -1,6 +1,7 @@
 
 import * as Ajv from 'ajv';
 import * as a from 'awaiting';
+import * as merge from 'lodash.merge';
 
 const schemaRef = require('json-schema-ref-parser');
 const ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
@@ -8,9 +9,17 @@ const ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
 // const deref = require('json-schema-deref');
 export class SchemaError extends Error {
   _errors: Array<object>;
-  constructor(message, errors) {
-    super(message) // tslint:disable-line
+  _serialized: string;
+  constructor(message, errors, long?: boolean) {
+    const _serialized = `${message}\n${JSON.stringify(errors.map(v => {
+      const w = merge({}, v);
+      delete w['parentSchema'];
+      return w;
+    }), null, 2)}`;
+    const msg = long ? _serialized : message;
+    super(msg);
     this._errors = errors;
+    this._serialized = _serialized;
     Object.setPrototypeOf(this, SchemaError.prototype);
   }
   get errors() {
@@ -18,11 +27,7 @@ export class SchemaError extends Error {
   }
 
   serialize() {
-    const violations = this._errors.map(v => {
-      delete v['parentSchema'];
-      return v;
-    });
-    return `${this.message}\n${JSON.stringify(violations, null, 2)}`;
+    return this._serialized;
   }
 }
 
@@ -43,9 +48,14 @@ function getVersion(schema) {
  * @async
  * @param schema schema to validate data against
  * @param data data to validate
+ * @param longError serializes all schema violations
  * @returns Promise<boolean>
  */
-export const isValid = async (schema, data = null): Promise<boolean> => {
+export const isValid = async (
+  schema,
+  data = null,
+  longError = false
+): Promise<boolean> => {
   const fullSchema = await schemaRef.dereference(schema);
   const ajv = new Ajv({
     allErrors: true,
@@ -56,10 +66,10 @@ export const isValid = async (schema, data = null): Promise<boolean> => {
     ajv.addMetaSchema(ajv04);
   }
   if (!ajv.validateSchema(fullSchema)) {
-    throw new SchemaError(`Invalid schema`, ajv.errors);
+    throw new SchemaError(`Invalid schema`, ajv.errors, longError);
   }
   if (data && !ajv.validate(fullSchema, data)) {
-    throw new SchemaError(`Invalid data`, ajv.errors);
+    throw new SchemaError(`Invalid data`, ajv.errors, longError);
   }
   return true;
 };

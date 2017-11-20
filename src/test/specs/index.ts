@@ -4,6 +4,7 @@ import { isValid } from '../..';
 import { fixtures } from '../fixtures';
 import { serializedString } from '../fixtures/serializedString';
 import * as execa from 'execa';
+import * as fs from 'fs';
 
 const JSON2 = j => JSON.stringify(j, null, 2);
 
@@ -80,6 +81,29 @@ test('data-check API schema-fail', async (t) => {
     );
   }
 });
+
+test('data-check API schema-ok, data-fail longError', async (t) => {
+  try {
+    await isValid(fixtures.valid.schema, fixtures.invalid.data, true);
+    t.fail('invalid *data* passed validation!');
+  } catch (err) {
+    t.regex(
+      err.errors[0].message,
+      /should NOT have additional properties/
+    );
+    t.is(
+      err.message,
+      serializedString,
+      err.message
+    );
+    t.is(
+      err.serialize(),
+      serializedString,
+      err.serialize()
+    );
+  }
+});
+
 
 test('data-check API schema-ok, data-fail', async (t) => {
   try {
