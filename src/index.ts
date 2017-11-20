@@ -1,7 +1,4 @@
 
-import * as engchk from 'runtime-engine-check';
-engchk(); // checks node version matches spec in package.json
-
 import * as Ajv from 'ajv';
 import * as a from 'awaiting';
 

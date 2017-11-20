@@ -46,8 +46,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var engchk = require("runtime-engine-check");
-engchk();
 var Ajv = require("ajv");
 var schemaRef = require('json-schema-ref-parser');
 var ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
