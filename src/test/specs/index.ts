@@ -2,6 +2,7 @@
 import { test } from 'ava';
 import { isValid } from '../..';
 import { fixtures } from '../fixtures';
+import { serializedString } from '../fixtures/serializedString';
 import * as execa from 'execa';
 
 const JSON2 = j => JSON.stringify(j, null, 2);
@@ -92,6 +93,11 @@ test('data-check API schema-ok, data-fail', async (t) => {
     t.regex(
       err.errors[0].message,
       /should NOT have additional properties/
+    );
+    t.is(
+      err.serialize(),
+      serializedString,
+      err.serialize()
     );
   }
 });

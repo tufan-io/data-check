@@ -9,12 +9,20 @@ const ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
 export class SchemaError extends Error {
   _errors: Array<object>;
   constructor(message, errors) {
-    super(message);
+    super(message) // tslint:disable-line
     this._errors = errors;
     Object.setPrototypeOf(this, SchemaError.prototype);
   }
   get errors() {
     return this._errors;
+  }
+
+  serialize() {
+    const violations = this._errors.map(v => {
+      delete v['parentSchema'];
+      return v;
+    });
+    return `${this.message}\n${JSON.stringify(violations, null, 2)}`;
   }
 }
 
@@ -55,3 +63,4 @@ export const isValid = async (schema, data = null): Promise<boolean> => {
   }
   return true;
 };
+

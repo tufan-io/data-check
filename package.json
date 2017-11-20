@@ -78,7 +78,7 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/circular-json": "^0.4.0",
-    "@types/node": "^8.0.51",
+    "@types/node": "^8.0.53",
     "@types/semver": "^5.3.31",
     "ava": "^0.23.0",
     "commitizen": "^2.9.6",

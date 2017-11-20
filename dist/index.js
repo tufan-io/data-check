@@ -64,6 +64,13 @@ var SchemaError = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    SchemaError.prototype.serialize = function () {
+        var violations = this._errors.map(function (v) {
+            delete v['parentSchema'];
+            return v;
+        });
+        return this.message + "\n" + JSON.stringify(violations, null, 2);
+    };
     return SchemaError;
 }(Error));
 exports.SchemaError = SchemaError;
