@@ -4,9 +4,11 @@ engchk(); // checks node version matches spec in package.json
 
 import * as Ajv from 'ajv';
 import * as a from 'awaiting';
+
+const schemaRef = require('json-schema-ref-parser');
 const ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
 
-const deref = require('json-schema-deref');
+// const deref = require('json-schema-deref');
 export class SchemaError extends Error {
   _errors: Array<object>;
   constructor(message, errors) {
@@ -39,7 +41,7 @@ function getVersion(schema) {
  * @returns Promise<boolean>
  */
 export const isValid = async (schema, data = null): Promise<boolean> => {
-  const fullSchema = await a.callback(deref, schema);
+  const fullSchema = await schemaRef.dereference(schema);
   const ajv = new Ajv({
     allErrors: true,
     format: 'full',

@@ -1,3 +1,13 @@
+<a name="0.0.0-development"></a>
+# [0.0.0-development](https://github.com/tufan-io/data-check/compare/v1.0.1...v0.0.0-development) (2017-11-20)
+
+
+### Bug Fixes
+
+* moving from json-schema-deref to json-schema-ref-parser - allows this to work in the browser ([164eacb](https://github.com/tufan-io/data-check/commit/164eacb))
+
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2017-10-20)
 

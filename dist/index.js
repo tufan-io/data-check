@@ -49,9 +49,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var engchk = require("runtime-engine-check");
 engchk();
 var Ajv = require("ajv");
-var a = require("awaiting");
+var schemaRef = require('json-schema-ref-parser');
 var ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
-var deref = require('json-schema-deref');
 var SchemaError = (function (_super) {
     __extends(SchemaError, _super);
     function SchemaError(message, errors) {
@@ -81,7 +80,7 @@ exports.isValid = function (schema, data) {
         var fullSchema, ajv;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, a.callback(deref, schema)];
+                case 0: return [4, schemaRef.dereference(schema)];
                 case 1:
                     fullSchema = _a.sent();
                     ajv = new Ajv({

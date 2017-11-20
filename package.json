@@ -46,7 +46,7 @@
     "pkg-ok": "pkg-ok",
     "precommit": "run-batch",
     "prepush": "run-batch",
-    "semantic-release": "cross-env NPM_CONFIG_LOGLEVEL=debug semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "run-batch": {
     "build": [
@@ -106,7 +106,7 @@
     "chalk": "^2.3.0",
     "commander": "^2.11.0",
     "fs-read-data": "^1.0.2",
-    "json-schema-deref": "^0.3.6",
+    "json-schema-ref-parser": "^4.0.4",
     "parse-git-config": "^1.1.1",
     "read-pkg-up": "^3.0.0",
     "runtime-engine-check": "^1.0.0",
